@@ -1,55 +1,59 @@
 # Antigravity-Mem & Graphify Replication Guide
 
-Panduan ini berisi langkah-langkah untuk mereplikasi sistem **Antigravity-Mem** (Automated Knowledge Mapping) dan **Graphify** (Knowledge Graph) ke dalam workspace baru.
+This guide contains the steps to replicate the **Antigravity-Mem** (Automated Knowledge Mapping) and **Graphify** (Knowledge Graph) systems into a new workspace.
 
-## 1. Prasyarat (Prerequisites)
-Pastikan sistem Anda memiliki:
-- **Python 3.10+** (untuk menjalankan skrip `.py`)
-- **SQLite3** (biasanya sudah ada di Python)
-- **Git** (opsional, untuk perintah commit)
+## 1. Prerequisites
+Ensure your system has:
+- **Python 3.10+** (to run `.py` scripts)
+- **SQLite3** (usually included with Python)
+- **Git** (for commit operations)
 
-## 2. Instalasi Tooling
-Instal tool `graphify` (jika belum ada) menggunakan pip:
+## 2. Tooling Installation
+Install the `graphify` tool (if not already present) using pip:
 ```bash
-# Ganti URL ini dengan sumber resmi jika berbeda
 pip install git+https://github.com/abusyifanasrul-lang/graphify.git
 ```
-*Catatan: Pastikan `graphify` dapat dipanggil dari terminal.*
+*Note: Ensure `graphify` is accessible from your terminal.*
 
-## 3. Struktur Folder
-Pastikan file-file berikut berada di posisi yang benar di workspace baru Anda:
+## 3. Project Structure
+Ensure the following files are in the correct positions in your new workspace:
 ```plaintext
 workspace-root/
 ├── .agent/
 │   ├── rules/
-│   │   ├── GEMINI.md          # Protokol Memori Otomatis
-│   │   └── graphify.md        # Aturan navigasi graph
+│   │   ├── GEMINI.md          # Automated Memory Protocol
+│   │   └── graphify.md        # Graph navigation rules
 │   ├── workflows/
-│   │   └── graphify.md        # Slash command untuk graphify
+│   │   └── graphify.md        # Slash command for graphify
 │   └── scripts/
 │       └── antigravity_mem/
-│           ├── harvester.py    # Mengambil data dari memory.db
-│           ├── init_db.py      # Inisialisasi database SQLite
-│           ├── backfill_legacy.py
-│           └── sync_mem.py     # Wrapper untuk koordinasi
+│           ├── harvester.py    # Extracts data from git diff
+│           ├── init_db.py      # SQLite database initialization
+│           ├── backfill_legacy.py # Legacy project scanner
+│           └── sync_mem.py     # Sync coordination wrapper
 ├── scripts/
-│   └── sync_knowledge.py       # Skrip koordinasi utama
-└── KNOWLEDGE_MAP.md            # Hasil pemetaan (Markdown)
+│   └── sync_knowledge.py       # Main orchestration script
+└── setup.py                   # Automated installer
 ```
 
-## 4. Inisialisasi Database
-Jalankan skrip berikut untuk membuat database `memory.db` baru di workspace Anda:
+## 4. Automatic Setup
+Simply run the installer script from your project root:
 ```bash
-python .agent/scripts/antigravity_mem/init_db.py
+python setup.py
 ```
+This script will:
+1. Install dependencies.
+2. Create the necessary folder structure.
+3. Initialize a fresh `memory.db`.
+4. Optionally scan your existing codebase if it's not a new project.
 
-## 5. Aktivasi Agent (Inisiasi Awal)
-Saat Anda memulai workspace baru dengan Antigravity (Google Deepmind AI), berikan prompt berikut agar Agent mengenali protokol ini:
+## 5. Agent Activation
+When you start a new workspace with an AI Coding Agent (like Antigravity), give the following prompt:
 
-> "Saya telah mengimplementasikan sistem **Antigravity-Mem** dan **Graphify** di workspace ini. Tolong aktifkan **Automated Memory Protocol** sesuai dengan `.agent/rules/GEMINI.md`. Setiap kali saya memberikan perintah 'commit and push', Anda wajib menjalankan `python .agent/scripts/antigravity_mem/sync_mem.py` untuk mengupdate `KNOWLEDGE_MAP.md` dan `graphify`."
+> "I have implemented the **Antigravity-Mem** and **Graphify** system in this workspace. Please activate the **Automated Memory Protocol** as per `.agent/rules/GEMINI.md`. Every time I give a 'commit and push' command, you are required to run `python scripts/sync_knowledge.py` to update the `KNOWLEDGE_MAP.md` and `graphify`."
 
-## 6. Cara Penggunaan Manual
-Anda juga dapat menjalankan sinkronisasi secara manual kapan saja dengan:
+## 6. Manual Usage
+You can also run the synchronization manually at any time with:
 ```bash
 python scripts/sync_knowledge.py
 ```

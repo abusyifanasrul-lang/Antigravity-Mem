@@ -1,57 +1,59 @@
 # 🤖 Antigravity Memory Protocol
 
-**Antigravity Memory Protocol** adalah sistem manajemen pengetahuan otomatis yang dirancang untuk AI Coding Agent (seperti Google Deepmind Antigravity). Sistem ini memungkinkan AI untuk memiliki "ingatan jangka panjang" terhadap keputusan arsitektur, perubahan kode, dan perkembangan proyek Anda.
+> [!NOTE]
+> Bahasa Indonesia? Baca [README_ID.md](./README_ID.md)
 
-## 🌟 Fitur Utama
-- **Automated Harvesting**: Secara otomatis mencatat perubahan fungsi dan logika setiap kali Anda melakukan commit.
-- **Universal Language Support**: Mendukung berbagai bahasa pemrograman (Python, JS/TS, Go, Rust, PHP, dll).
-- **Initial Discovery Scan**: Mampu "menyedot" data dari proyek yang sudah berjalan (existing projects) untuk membangun basis pengetahuan instan.
-- **Graphify Integration**: Membangun *Knowledge Graph* untuk menghubungkan relasi antar file dan keputusan arsitektur (ADR).
-- **Self-Healing Documentation**: Menjaga `KNOWLEDGE_MAP.md` dan `STATE_OF_THE_UNION.md` tetap up-to-date secara otomatis.
+**Antigravity Memory Protocol** is an automated knowledge management system designed for AI Coding Agents (such as Google Deepmind Antigravity). It enables AI to maintain a "long-term memory" of architectural decisions, code changes, and project evolution directly within your repository.
 
-## 🚀 Cara Instalasi (Quick Start)
+## 🌟 Key Features
+- **Automated Harvesting**: Automatically records function and logic changes every time you commit.
+- **Universal Language Support**: Supports multiple programming languages (Python, JS/TS, Go, Rust, PHP, etc.).
+- **Initial Discovery Scan**: Capable of "ingesting" data from existing projects to build instant knowledge context.
+- **Graphify Integration**: Builds a *Knowledge Graph* to link relationships between files and architectural decisions (ADR).
+- **Self-Healing Documentation**: Automatically keeps `KNOWLEDGE_MAP.md` and `STATE_OF_THE_UNION.md` up-to-date.
 
-1. **Copy Folder**: Salin seluruh isi paket ini ke direktori root project Anda.
-2. **Jalankan Installer**: Buka terminal di root project dan jalankan:
+## 🚀 Quick Start
+
+1. **Copy Files**: Copy all files from this package to your project's root directory.
+2. **Run Installer**: Open a terminal in the root directory and run:
    ```bash
    python setup.py
    ```
-3. **Ikuti Instruksi**: 
-   - Installer akan menginstal dependensi `graphify`.
-   - Installer akan mendeteksi apakah project Anda baru atau sudah berjalan.
-   - Pilih **"Y"** jika ingin melakukan *Initial Scan* pada project yang sudah ada.
+3. **Follow Prompts**: 
+   - The installer will automatically set up structure and dependencies.
+   - Choose **"Y"** if you want to perform an *Initial Scan* on an existing project.
 
-## 📁 Struktur Folder
+## 📁 Folder Structure
 ```plaintext
 your-project/
 ├── .agent/
 │   ├── rules/
-│   │   └── GEMINI.md          # Aturan protokol untuk AI Agent
+│   │   └── GEMINI.md          # AI Agent protocol rules
 │   └── scripts/
-│       └── antigravity_mem/   # Mesin penggerak (Harvester, Backfill, dll)
+│       └── antigravity_mem/   # Core engine (Harvester, Backfill, etc.)
 ├── scripts/
-│   └── sync_knowledge.py      # Orchestrator utama
+│   └── sync_knowledge.py      # Main Orchestrator
 └── setup.py                   # Auto-installer
 ```
 
-## 🛠️ Cara Penggunaan Harian
+## 🛠️ Daily Usage
 
-### 1. Aktivasi Agent
-Saat pertama kali memulai sesi dengan AI Agent, berikan perintah:
-> "Aktifkan **Automated Memory Protocol** sesuai dengan `.agent/rules/GEMINI.md`."
+### 1. Agent Activation
+When starting a new session with an AI Agent, give the following instruction:
+> "Activate **Automated Memory Protocol** as per `.agent/rules/GEMINI.md`."
 
-### 2. Sinkronisasi Otomatis
-Sistem ini dirancang untuk berjalan setiap kali Anda melakukan commit. Anda bisa meminta AI:
-> "Commit dan push perubahan ini, lalu jalankan sinkronisasi memori."
+### 2. Automated Sync
+The system is designed to run after every commit. You can tell the AI:
+> "Commit and push these changes, then run memory synchronization."
 
-Atau jalankan secara manual:
+Or run it manually:
 ```bash
 python scripts/sync_knowledge.py
 ```
 
-## 📝 Catatan Penting
-- **Graphify**: Membutuhkan koneksi internet saat instalasi pertama untuk menarik package dari GitHub.
-- **SQLite3**: Semua data disimpan secara lokal di `.agent/memory.db`. Data Anda tetap milik Anda.
+## 📝 Important Notes
+- **Graphify**: Requires an internet connection during the first installation to pull the package from GitHub.
+- **SQLite3**: All data is stored locally in `.agent/memory.db`. Your data remains yours.
 
 ---
-*Created with ❤️ by Antigravity AI for the Developer Community.*
+*Created with ❤️ by Antigravity AI for the Global Developer Community.*

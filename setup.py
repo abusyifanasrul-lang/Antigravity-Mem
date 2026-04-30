@@ -9,8 +9,8 @@ def print_step(msg):
 
 def run_command(cmd):
     try:
-        subprocess.check_call(cmd, shell=True)
-        return True
+        result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+        return result.stdout.strip()
     except subprocess.CalledProcessError as e:
         print(f"❌ Error executing: {cmd}")
         return False
@@ -44,11 +44,8 @@ def setup():
         os.makedirs(folder, exist_ok=True)
         print(f"  - Created {folder}/")
 
-    # 4. Copy Files (Assuming script is inside the distribution folder)
+    # 4. Copy Files
     print_step("Deploying protocol files...")
-    # This script expects to be in the root of the temp folder or same level as the files
-    # We will copy from current directory to the project directories
-    
     mapping = {
         "scripts/sync_knowledge.py": "scripts/sync_knowledge.py",
         ".agent/rules/GEMINI.md": ".agent/rules/GEMINI.md",
@@ -96,24 +93,24 @@ def setup():
                 break
 
     if is_existing:
-        print("\n🤖 [Sistem Mendeteksi Project Berjalan]")
-        print("Sangat disarankan untuk menjalankan 'Initial Discovery Scan' agar AI memahami konteks project Anda saat ini.")
-        choice = input("❓ Jalankan scan sekarang? (Y/n): ").lower()
+        print("\n🤖 [Existing Project Detected]")
+        print("We recommend running the 'Initial Discovery Scan' so the AI understands your current project context.")
+        choice = input("❓ Run scan now? (Y/n): ").lower()
         if choice != 'n':
             print_step("Running Initial Discovery Scan...")
             run_command("python .agent/scripts/antigravity_mem/backfill_legacy.py")
             print("✅ Project history and structure ingested.")
     else:
-        print("\n🌱 [Sistem Mendeteksi Project Baru]")
-        print("Selamat memulai! AI akan mulai mencatat memori sejak commit pertama Anda.")
+        print("\n🌱 [New Project Detected]")
+        print("Welcome! The AI will start recording memories from your first commit.")
 
     print("\n" + "="*42)
     print("🎉 INSTALLATION COMPLETE!")
     print("="*42)
     print("\nNext Steps:")
-    print("1. Pastikan Agent Anda mengenali protokol ini.")
-    print("2. Berikan instruksi: 'Aktifkan Automated Memory Protocol sesuai GEMINI.md'")
-    print("3. Jalankan 'python scripts/sync_knowledge.py' untuk sinkronisasi pertama.")
+    print("1. Ensure your AI Agent recognizes this protocol.")
+    print("2. Give instruction: 'Activate Automated Memory Protocol as per GEMINI.md'")
+    print("3. Run 'python scripts/sync_knowledge.py' for the first synchronization.")
     print("\nHappy Coding with Antigravity! 🤖")
 
 if __name__ == "__main__":
