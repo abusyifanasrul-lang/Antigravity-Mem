@@ -1,59 +1,121 @@
-# 🤖 Antigravity Memory Protocol
+# 🤖 Antigravity Memory Protocol (AG-MEM)
 
-> [!NOTE]
-> Bahasa Indonesia? Baca [README_ID.md](./README_ID.md)
+[![Python Support](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Knowledge: Automated](https://img.shields.io/badge/Knowledge-Automated-green.svg)](#how-it-works)
 
-**Antigravity Memory Protocol** is an automated knowledge management system designed for AI Coding Agents (such as Google Deepmind Antigravity). It enables AI to maintain a "long-term memory" of architectural decisions, code changes, and project evolution directly within your repository.
+> **"Give your AI Agent a brain that never forgets your architectural decisions."**
 
-## 🌟 Key Features
-- **Automated Harvesting**: Automatically records function and logic changes every time you commit.
-- **Universal Language Support**: Supports multiple programming languages (Python, JS/TS, Go, Rust, PHP, etc.).
-- **Initial Discovery Scan**: Capable of "ingesting" data from existing projects to build instant knowledge context.
-- **Graphify Integration**: Builds a *Knowledge Graph* to link relationships between files and architectural decisions (ADR).
-- **Self-Healing Documentation**: Automatically keeps `KNOWLEDGE_MAP.md` and `STATE_OF_THE_UNION.md` up-to-date.
+**Antigravity Memory Protocol (AG-MEM)** is a high-performance, repository-native knowledge management system. It bridges the gap between raw code changes and long-term architectural understanding, ensuring your AI Agent (like Google Antigravity, Claude, or GPT) remains contextually aware of *why* and *how* your project evolves.
+
+---
+
+## 🌐 Language Support
+- [🇮🇩 Bahasa Indonesia](./README_ID.md)
+- [🇺🇸 English (Current)](#)
+
+---
+
+## 🧠 Why AG-MEM?
+
+Most AI Agents suffer from "Knowledge Drift"—as the project grows, they lose track of past decisions made in previous sessions. AG-MEM solves this by:
+1. **Persistent Memory**: Storing every logic change in a structured SQLite database.
+2. **Context Continuity**: Generating living documentation (`KNOWLEDGE_MAP.md`) that acts as a "State of the Union" for the AI.
+3. **Graph Awareness**: Building a semantic graph of your codebase using `Graphify`.
+
+---
+
+## 🔄 How It Works
+
+AG-MEM operates as a "Silent Librarian" in your repository. Here is the operational flow:
+
+### 1. The Workflow Loop
+
+```mermaid
+graph TD
+    A[Code Change] --> B[Git Commit]
+    B --> C{AG-MEM Trigger}
+    C --> D[Git Diff Harvester]
+    D --> E[Semantic Extraction]
+    E --> F[(SQLite Memory.db)]
+    F --> G[Knowledge Map Gen]
+    F --> H[Graphify Update]
+    G --> I[AI Session Context]
+    H --> I
+```
+
+### 2. Operational Phases
+1.  **Harvesting Phase**: Triggered after a commit, the system analyzes `git diff`. It doesn't just see "lines added," it understands "logic changed" (e.g., *Refactored Auth Service to use Supabase RPC*).
+2.  **Persistence Phase**: Metadata and semantic observations are saved to `.agent/memory.db`.
+3.  **Visualization Phase**: The system updates `KNOWLEDGE_MAP.md`, providing a human-and-AI-readable history of the project.
+4.  **Relational Phase**: `Graphify` links these observations into a nodes-and-edges graph, allowing the AI to "travel" through dependencies.
+
+---
+
+## 📊 Comparison with Other Systems
+
+| Feature | **Antigravity-Mem** | **MemPalace** | **Claude-Mem** |
+| :--- | :--- | :--- | :--- |
+| **Integration** | **Repo-Native (Git)** | Local Desktop | MCP Server |
+| **Automation** | **Auto-Harvesting** | Manual Notes | Retrieval-based |
+| **Setup Cost** | **Zero (Single Script)** | High (Application) | Medium (Config) |
+| **Graph Logic** | **Native Graphify** | Limited | None |
+| **AI Agnostic** | Yes (Markdown Based) | No (UI Based) | Yes (MCP) |
+| **Primary Goal** | **Repo Intelligence** | Personal Knowledge | Message History |
+
+---
 
 ## 🚀 Quick Start
 
-1. **Copy Files**: Copy all files from this package to your project's root directory.
-2. **Run Installer**: Open a terminal in the root directory and run:
-   ```bash
-   python setup.py
-   ```
-3. **Follow Prompts**: 
-   - The installer will automatically set up structure and dependencies.
-   - Choose **"Y"** if you want to perform an *Initial Scan* on an existing project.
-
-## 📁 Folder Structure
-```plaintext
-your-project/
-├── .agent/
-│   ├── rules/
-│   │   └── GEMINI.md          # AI Agent protocol rules
-│   └── scripts/
-│       └── antigravity_mem/   # Core engine (Harvester, Backfill, etc.)
-├── scripts/
-│   └── sync_knowledge.py      # Main Orchestrator
-└── setup.py                   # Auto-installer
+### 1. Installation
+Clone this repository or copy the files to your project root, then run:
+```powershell
+python setup.py
 ```
+*The installer will automatically configure your project structure and install `graphify`.*
 
-## 🛠️ Daily Usage
+### 2. Initialization
+If you have an existing project, choose **"Y"** during setup to perform a **Backfill Scan**. AG-MEM will digest your current codebase to build an instant knowledge base.
 
-### 1. Agent Activation
-When starting a new session with an AI Agent, give the following instruction:
-> "Activate **Automated Memory Protocol** as per `.agent/rules/GEMINI.md`."
-
-### 2. Automated Sync
-The system is designed to run after every commit. You can tell the AI:
-> "Commit and push these changes, then run memory synchronization."
-
-Or run it manually:
-```bash
-python scripts/sync_knowledge.py
-```
-
-## 📝 Important Notes
-- **Graphify**: Requires an internet connection during the first installation to pull the package from GitHub.
-- **SQLite3**: All data is stored locally in `.agent/memory.db`. Your data remains yours.
+### 3. Activating the Protocol
+Tell your AI Agent:
+> "Activate **Automated Memory Protocol** from `.agent/rules/GEMINI.md`. Sync knowledge after every commit."
 
 ---
-*Created with ❤️ by Antigravity AI for the Global Developer Community.*
+
+## 🎯 Common Use Cases
+
+- **AI Onboarding**: When a new AI session starts, it reads `KNOWLEDGE_MAP.md` and immediately knows the current state of the project without scanning thousands of lines.
+- **Decision Tracking**: Understand *why* a specific RPC was created 3 months ago.
+- **Refactoring Safety**: The AI can check if a new change contradicts previous architectural decisions stored in the Memory DB.
+- **Technical Debt Audit**: Automatically track areas of the code that are frequently changed or marked as "workarounds" in commit messages.
+
+---
+
+## 📁 Repository Architecture
+
+```plaintext
+root/
+├── .agent/
+│   ├── rules/
+│   │   └── GEMINI.md          # Protocol Enforcement Rules
+│   ├── scripts/
+│   │   └── antigravity_mem/   # Core Logic (Harvester, Backfill)
+│   └── memory.db              # SQLite Knowledge Storage
+├── scripts/
+│   └── sync_knowledge.py      # Main Orchestrator (The "Librarian")
+└── setup.py                   # One-Click Installer
+```
+
+---
+
+## 🛡️ Principles
+- **Privacy First**: All data is stored locally in `.agent/`. No data leaves your machine.
+- **Minimal Overhead**: Scripts are optimized to run in milliseconds.
+- **Living Docs**: No more stale READMEs. Your documentation evolves with your code.
+
+---
+
+*Built for the next generation of Agentic Workflows.*
+*Maintained by the **Antigravity AI** community.*
+
